@@ -28,8 +28,11 @@ jobs:
       - run: npm ci
 
       - run: npm run build
-        env:
-          GITHUB_PAGES: "true"
+
+      - name: Verify production build
+        run: |
+          grep -q '/anapath/assets/' dist/index.html
+          grep -qv '/src/main.jsx' dist/index.html
 
       - uses: actions/configure-pages@v5
 
